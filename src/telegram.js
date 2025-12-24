@@ -79,6 +79,10 @@ async function sendToTelegram(botToken, chatId, projects) {
     console.log('訊息發送成功！');
   } catch (error) {
     console.error('發送 Telegram 訊息時發生錯誤:', error.message);
+    if (error.response) {
+      console.error('API 回應:', error.response.body);
+    }
+    console.error('完整錯誤:', error);
     throw error;
   }
 }
