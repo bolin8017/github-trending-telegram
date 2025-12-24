@@ -1,0 +1,39 @@
+name: Daily GitHub Trending to Telegram
+
+on:
+  # 每天早上 9:00 (UTC+8) 執行，GitHub Actions 使用 UTC 時間，所以是 01:00 UTC
+  schedule:
+    - cron: '0 1 * * *'  # 每天 UTC 01:00 (台灣時間 09:00)
+
+  # 允許手動觸發
+  workflow_dispatch:
+
+jobs:
+  send-trending:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run scraper and send to Telegram
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+        run: node index.js
+
+      - name: Completion message
+        if: success()
+        run: echo "✅ GitHub Trending 已成功發送到 Telegram！"
+
+      - name: Error notification
+        if: failure()
+        run: echo "❌ 執行失敗，請檢查日誌"

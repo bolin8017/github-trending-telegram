@@ -1,0 +1,29 @@
+{
+  "name": "github-trending-telegram",
+  "version": "1.0.0",
+  "description": "每天自動從 GitHub Trending 抓取熱門項目並發送到 Telegram",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "node index.js"
+  },
+  "keywords": [
+    "github",
+    "trending",
+    "telegram",
+    "bot",
+    "automation"
+  ],
+  "author": "",
+  "license": "MIT",
+  "type": "commonjs",
+  "dependencies": {
+    "axios": "^1.13.2",
+    "cheerio": "^1.1.2",
+    "dotenv": "^17.2.3",
+    "node-telegram-bot-api": "^0.67.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
